@@ -49,7 +49,7 @@ export default function Home() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
         />
-        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" />
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" async />
       </Head>
 
       <div
