@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Head from "next/head";
-import Script from "next/script";
 
 const TOP_PICKS = ["AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "TSLA", "META", "NFLX", "AMD", "C"];
 
@@ -50,7 +49,7 @@ export default function Home() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
         />
-        <Script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" strategy="afterInteractive" />
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"/>
       </Head>
 
       <div
