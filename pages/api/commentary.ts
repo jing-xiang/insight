@@ -7,9 +7,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const { symbol } = req.body;
   const data = await yahooFinance.quoteSummary(symbol, { modules: ["price", "summaryDetail"] });
-  console.log("Fetched data:", data);
-  const price = data.price.regularMarketPrice;
-  const volume = data.summaryDetail.volume;
+
+  const price = data?.price?.regularMarketPrice;
+  const volume = data?.summaryDetail?.volume;
+
+  if (price === undefined || volume === undefined) {
+    return res.status(400).json({ error: "Missing price or volume data." });
+  }
 
   const prompt = `Generate a 2-paragraph commentary for ${symbol}. 
     The price is ${price}, and the volume is ${volume}. 
