@@ -17,8 +17,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const prompt = `Generate a 2-paragraph commentary for ${symbol}. 
     The price is ${price}, and the volume is ${volume}. 
-    Use a financial analyst tone.`;
+    Use a financial analyst tone. Avoid using placeholders like [Next Quarter] or generic suggestions. Focus on actual data provided and current market tone.`;
 
   const commentary = await generateCommentary(prompt);
+  console.log(data)
   res.status(200).json({ commentary });
 }
