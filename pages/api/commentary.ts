@@ -6,7 +6,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== "POST") return res.status(405).end();
 
   const { symbol } = req.body;
-  const data = await yahooFinance.quoteSummary(symbol, { modules: ["price", "summaryDetail"] });
+  
+  try {
+    const data = await yahooFinance.quoteSummary(symbol, { modules: ["price", "summaryDetail"] });
 
   const price = data?.price?.regularMarketPrice;
   const volume = data?.summaryDetail?.volume;
@@ -28,6 +30,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
    You can use these information to compare the company to market leaders if deemed fit.
    Keep the response to 2 paragraphs and use a financial analyst tone. You do not need to greet the user.`;
 
-  const commentary = await generateCommentary(prompt);
-  res.status(200).json({ commentary });
+    const commentary = await generateCommentary(prompt);
+    console.log(data)
+    // console.log(commentary);
+    // console.log("Commentary type:", typeof commentary);
+    res.status(200).json({ commentary });
+
+  } catch (error: unknown) {
+    let errorString = "An unknown error occurred.";
+
+    if (error instanceof Error) {
+      errorString = error.message;
+    } else if (typeof error === "string") {
+      errorString = error;
+    } else {
+      errorString = JSON.stringify(error);
+    }
+
+    console.log("Error caught:", errorString);
+    res.status(200).json({ commentary: errorString });
+  };
 }
